@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Module07Data_Access.ViewModel"
+             x:Class="Module07Data_Access.View.ViewPersonal"
+             Title="Employee List">
+    <ScrollView>
+        <VerticalStackLayout>
+            <!-- Back Button -->
+            <Button Text="Back"
+                    Clicked="OnBackButtonClicked"
+                    HorizontalOptions="Start" />
+
+            <Label Text="Employee List"
+                   FontSize="20"
+                   HorizontalOptions="Center" />
+
+            <!-- Search Bar and Buttons -->
+            <Entry Placeholder="Search by Name, Gender, or Contact No" Text="{Binding SearchText}" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button Text="Search" Command="{Binding SearchCommand}" />
+                <Button Text="Show All" Command="{Binding ShowAllCommand}" />
+            </StackLayout>
+
+            <!-- Employee List -->
+            <ListView ItemsSource="{Binding PersonalList}" SelectedItem="{Binding SelectedPersonal}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding Name}" FontSize="Medium" />
+                                <Label Text="{Binding Gender}" FontSize="Small" />
+                                <Label Text="{Binding ContactNo}" FontSize="Small" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!-- Add / Update Section -->
+            <Label Text="Add or Update Person" FontSize="Large" />
+            <Entry Placeholder="Name" Text="{Binding NewPersonalName}" />
+            <Entry Placeholder="Gender" Text="{Binding NewPersonalGender}" />
+            <Entry Placeholder="Contact No" Text="{Binding NewPersonalContactNo}" />
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button Text="Add Person" Command="{Binding AddPersonalCommand}" />
+                <Button Text="Update Person" Command="{Binding UpdateCommand}" IsEnabled="{Binding IsPersonSelected}" />
+                <Button Text="Delete Person" Command="{Binding DeletePersonCommand}" IsEnabled="{Binding IsPersonSelected}" />
+            </StackLayout>
+
+            <!-- Status Message -->
+            <Label x:Name="ConnectionStatusLabel"
+                   Text="{Binding StatusMessage}"
+                   FontSize="18"
+                   HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
